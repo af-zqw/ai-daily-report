@@ -1,0 +1,24 @@
+{
+  "name": "ai-daily-report",
+  "version": "1.0.0",
+  "description": "AI Daily Report - Auto-generated daily news digest",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "collect": "tsx src/collector.ts",
+    "generate": "tsx src/generator.ts",
+    "build:site": "tsx src/builder.ts",
+    "daily": "npm run collect && npm run generate && npm run build:site"
+  },
+  "keywords": ["ai", "daily", "report", "news"],
+  "author": "af-zqw",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "openai": "^4.0.0"
+  }
+}
