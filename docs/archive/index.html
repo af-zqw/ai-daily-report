@@ -14,16 +14,19 @@
             padding: 2rem;
         }
         h1 { color: #58a6ff; }
-        a { color: #7ee787; }
+        a { color: #7ee787; text-decoration: none; }
+        a:hover { text-decoration: underline; }
         ul { list-style: none; padding: 0; }
-        li { margin: 0.5rem 0; padding: 0.5rem; background: #161b22; border-radius: 4px; }
+        li { margin: 0.5rem 0; padding: 0.75rem; background: #161b22; border-radius: 4px; }
+        .latest { border-left: 3px solid #7ee787; }
     </style>
 </head>
 <body>
     <h1>📚 历史归档</h1>
     <p><a href="../">← 返回首页</a></p>
     <ul>
-        <li><a href="../index.html">最新日报</a></li>
+        <li class="latest"><a href="../index.html">📰 最新日报</a></li>
+        <li><a href="2026-03-10.html">2026-03-10</a></li>
     </ul>
 </body>
 </html>

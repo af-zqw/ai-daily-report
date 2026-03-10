@@ -251,6 +251,21 @@ footer a {
 
   // 生成归档列表页
   private generateArchiveIndex(): void {
+    const { readdirSync } = require('fs');
+    const archiveDir = join(this.docsDir, 'archive');
+    
+    // 读取所有归档文件（排除 index.html）
+    const files = readdirSync(archiveDir)
+      .filter((f: string) => f.endsWith('.html') && f !== 'index.html')
+      .sort((a: string, b: string) => b.localeCompare(a)); // 降序排列，最新的在前
+    
+    // 生成归档链接列表
+    const archiveLinks = files.map((file: string) => {
+      const date = file.replace('.html', '');
+      const displayDate = date;
+      return `<li><a href="${file}">${displayDate}</a></li>`;
+    }).join('\n        ');
+
     const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -267,21 +282,24 @@ footer a {
             padding: 2rem;
         }
         h1 { color: #58a6ff; }
-        a { color: #7ee787; }
+        a { color: #7ee787; text-decoration: none; }
+        a:hover { text-decoration: underline; }
         ul { list-style: none; padding: 0; }
-        li { margin: 0.5rem 0; padding: 0.5rem; background: #161b22; border-radius: 4px; }
+        li { margin: 0.5rem 0; padding: 0.75rem; background: #161b22; border-radius: 4px; }
+        .latest { border-left: 3px solid #7ee787; }
     </style>
 </head>
 <body>
     <h1>📚 历史归档</h1>
     <p><a href="../">← 返回首页</a></p>
     <ul>
-        <li><a href="../index.html">最新日报</a></li>
+        <li class="latest"><a href="../index.html">📰 最新日报</a></li>
+        ${archiveLinks}
     </ul>
 </body>
 </html>`;
 
-    writeFileSync(join(this.docsDir, 'archive', 'index.html'), html);
+    writeFileSync(join(archiveDir, 'index.html'), html);
   }
 }
 
