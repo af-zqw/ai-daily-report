@@ -1,5 +1,5 @@
 // AI 内容生成器 - 使用 DeepSeek API
-import { CONFIG, validateConfig } from './config.js';
+import { CONFIG } from './config.js';
 import type { NewsArticle, DailyData } from './types.js';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
@@ -18,10 +18,12 @@ class Generator {
   private model: string;
 
   constructor() {
-    validateConfig();
     this.apiKey = CONFIG.deepseek.apiKey;
     this.baseUrl = CONFIG.deepseek.baseUrl;
     this.model = CONFIG.deepseek.model;
+    if (!this.apiKey) {
+      throw new Error('DEEPSEEK_API_KEY is required');
+    }
   }
 
   // 调用 DeepSeek API

@@ -1,5 +1,5 @@
 // 信息收集器 - 使用 Tavily API
-import { CONFIG, validateConfig } from './config.js';
+import { CONFIG } from './config.js';
 import type { TavilyResponse, TavilyResult, NewsArticle } from './types.js';
 import { writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
@@ -9,9 +9,11 @@ class Collector {
   private baseUrl: string;
 
   constructor() {
-    validateConfig();
     this.apiKey = CONFIG.tavily.apiKey;
     this.baseUrl = CONFIG.tavily.baseUrl;
+    if (!this.apiKey) {
+      throw new Error('TAVILY_API_KEY is required');
+    }
   }
 
   // 调用 Tavily API 搜索
